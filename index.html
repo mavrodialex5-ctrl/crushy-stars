@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crushy Stars</title>
+
+<style>
+body{
+    margin:0;
+    background:#111827;
+    color:white;
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.box{
+    text-align:center;
+}
+
+h1{
+    color:#FFD700;
+    font-size:48px;
+}
+
+button{
+    background:#FFD700;
+    border:none;
+    padding:15px 30px;
+    border-radius:12px;
+    font-size:20px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>⭐ Crushy Stars</h1>
+    <p>Первый запуск Mini App</p>
+
+    <button onclick="openCase()">
+        Открыть кейс ⭐5
+    </button>
+
+    <h2 id="result"></h2>
+</div>
+
+<script>
+function openCase(){
+
+const items = [
+"🐻 Медвежонок",
+"🎁 Подарок",
+"💎 Редкий дроп",
+"❤️ Сердце",
+"⭐ Джекпот"
+];
+
+const random =
+items[Math.floor(Math.random()*items.length)];
+
+document.getElementById("result").innerText =
+"Выпало: " + random;
+}
+</script>
+
+</body>
+</html>
