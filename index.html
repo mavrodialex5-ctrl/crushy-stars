@@ -3,220 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Crushy Stars</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-}
-
 body{
-background:#111827;
-color:white;
-padding:15px;
+  background:#111827;
+  color:white;
+  font-family:Arial,sans-serif;
+  margin:0;
+  padding:20px;
 }
 
 .header{
-background:#1f2937;
-border-radius:20px;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-}
-
-.profile{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.avatar{
-width:55px;
-height:55px;
-border-radius:50%;
-background:linear-gradient(45deg,#fbbf24,#f59e0b);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
 }
 
 .balance{
-background:#0f172a;
-padding:10px 15px;
-border-radius:15px;
-font-weight:700;
-}
-
-.banner{
-background:linear-gradient(90deg,#f59e0b,#fbbf24);
-color:#000;
-padding:15px;
-border-radius:15px;
-text-align:center;
-font-weight:700;
-margin-bottom:15px;
-}
-
-.tabs{
-display:flex;
-gap:10px;
-margin-bottom:15px;
-overflow:auto;
-}
-
-.tab{
-background:#1f2937;
-padding:10px 15px;
-border-radius:12px;
-white-space:nowrap;
+  background:#2563eb;
+  padding:10px 15px;
+  border-radius:15px;
 }
 
 .grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
 
-.case{
-background:#1f2937;
-border-radius:18px;
-padding:10px;
-cursor:pointer;
-transition:.2s;
+.gift-card{
+  background:#1f2937;
+  border-radius:20px;
+  padding:15px;
+  text-align:center;
+  cursor:pointer;
 }
 
-.case:hover{
-transform:translateY(-3px);
+.gift-card img{
+  width:100%;
+  border-radius:15px;
 }
 
-.case img{
-width:100%;
-border-radius:12px;
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  justify-content:center;
+  align-items:center;
 }
 
-.case-name{
-margin-top:10px;
-font-weight:700;
-}
-
-.price{
-color:#fbbf24;
-margin-top:5px;
-}
-
-.result{
-margin-top:20px;
-background:#1f2937;
-padding:15px;
-border-radius:15px;
-text-align:center;
-font-size:18px;
-display:none;
-}
-
-.bottom{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:#1f2937;
-display:flex;
-justify-content:space-around;
-padding:15px;
-}
-
-.bottom div{
-text-align:center;
+.modal-content{
+  background:#1f2937;
+  padding:20px;
+  border-radius:20px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="header">
-<div class="profile">
-<div class="avatar"></div>
-<div>
-<h3>Crushy Stars</h3>
-<small>Кейсы за звёзды</small>
-</div>
-</div>
-
-<div class="balance">
-⭐ 100
-</div>
-</div>
-
-<div class="banner">
-🔥 Открывай кейсы и выигрывай редкие подарки
-</div>
-
-<div class="tabs">
-<div class="tab">Лимитированные</div>
-<div class="tab">Новые</div>
-<div class="tab">Редкие</div>
-<div class="tab">VIP</div>
+  <h2>Crushy Stars</h2>
+  <div class="balance">⭐ 100</div>
 </div>
 
 <div class="grid">
 
-<div class="case" onclick="openCase('Summer Case')">
-<img src="https://picsum.photos/300/300?1">
-<div class="case-name">Summer Case</div>
-<div class="price">⭐ 5</div>
-</div>
+  <div class="gift-card" onclick="openGift('Summer Gift')">
+    <img src="https://placehold.co/300x300/png" alt="">
+    <h3>Summer Gift</h3>
+  </div>
 
-<div class="case" onclick="openCase('RGB Case')">
-<img src="https://picsum.photos/300/300?2">
-<div class="case-name">RGB Case</div>
-<div class="price">⭐ 8</div>
-</div>
-
-<div class="case" onclick="openCase('Rare Case')">
-<img src="https://picsum.photos/300/300?3">
-<div class="case-name">Rare Case</div>
-<div class="price">⭐ 15</div>
-</div>
-
-<div class="case" onclick="openCase('Promo Case')">
-<img src="https://picsum.photos/300/300?4">
-<div class="case-name">Promo Case</div>
-<div class="price">⭐ 20</div>
-</div>
+  <div class="gift-card" onclick="openGift('RGB Gift')">
+    <img src="https://placehold.co/300x300/png" alt="">
+    <h3>RGB Gift</h3>
+  </div>
 
 </div>
 
-<div class="result" id="result"></div>
-
-<div class="bottom">
-<div>🎁<br>Главная</div>
-<div>📋<br>Задания</div>
-<div>💥<br>Краш</div>
-<div>🎲<br>Игры</div>
-<div>👤<br>Профиль</div>
+<div id="giftModal" class="modal">
+  <div class="modal-content">
+    <h2>🎁 Подарок открыт!</h2>
+    <p id="giftText"></p>
+    <button onclick="closeGift()">Закрыть</button>
+  </div>
 </div>
 
 <script>
-function openCase(caseName){
+function openGift(name){
+  document.getElementById("giftModal").style.display="flex";
+  document.getElementById("giftText").innerText=name;
+}
 
-const drops = [
-"🐻 Медведь",
-"❤️ Сердце",
-"🎁 Подарок",
-"💎 Эпик",
-"⭐ Джекпот"
-];
-
-const drop =
-drops[Math.floor(Math.random()*drops.length)];
-
-const result =
-document.getElementById("result");
-
-result.style.display="block";
-result.innerHTML =
-`<b>${caseName}</b><br><br>Выпало: ${drop}`;
+function closeGift(){
+  document.getElementById("giftModal").style.display="none";
 }
 </script>
 
